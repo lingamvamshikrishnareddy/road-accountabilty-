@@ -1,11 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from '../utils/constants';
 
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-  throw new Error('Missing Supabase environment variables');
-}
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY || 'placeholder-key';
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+export const supabase = createClient(supabaseUrl, supabaseKey, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
@@ -13,15 +11,12 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   },
 });
 
-// Auth helpers
 export const authHelpers = {
   signUp: async (email, password, userData) => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: {
-        data: userData,
-      },
+      options: { data: userData },
     });
     return { data, error };
   },
@@ -43,18 +38,4 @@ export const authHelpers = {
     const { data: { user }, error } = await supabase.auth.getUser();
     return { user, error };
   },
-
-  resetPassword: async (email) => {
-    const { data, error } = await supabase.auth.resetPasswordForEmail(email);
-    return { data, error };
-  },
-
-  updatePassword: async (newPassword) => {
-    const { data, error } = await supabase.auth.updateUser({
-      password: newPassword,
-    });
-    return { data, error };
-  },
 };
-
-export default supabase;

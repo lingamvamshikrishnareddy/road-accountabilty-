@@ -1,104 +1,74 @@
 import axios from 'axios';
-import { API_BASE_URL } from '../utils/constants';
-import { supabase } from './supabase';
 
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
-// Request interceptor to add auth token
-api.interceptors.request.use(
-  async (config) => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session?.access_token) {
-      config.headers.Authorization = `Bearer ${session.access_token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-// Response interceptor for error handling
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // Handle unauthorized - redirect to login
-      window.location.href = '/auth';
-    }
-    return Promise.reject(error);
-  }
-);
-
-// Roads API
 export const roadsAPI = {
-  getAll: (params) => api.get('/roads', { params }),
-  getById: (id) => api.get(`/roads/${id}`),
-  create: (data) => api.post('/roads', data),
-  update: (id, data) => api.put(`/roads/${id}`, data),
-  delete: (id) => api.delete(`/roads/${id}`),
-  search: (query) => api.get('/roads/search', { params: { q: query } }),
+  getByQRCode: (qrCode) => axios.get(`${API_BASE_URL}/roads/qr/${qrCode}`),
+  getById: (id) => axios.get(`${API_BASE_URL}/roads/${id}`),
+  getAll: () => axios.get(`${API_BASE_URL}/roads`),
+  create: (data) => axios.post(`${API_BASE_URL}/roads`, data),
+  update: (id, data) => axios.put(`${API_BASE_URL}/roads/${id}`, data),
+  delete: (id) => axios.delete(`${API_BASE_URL}/roads/${id}`),
 };
 
-// Contracts API
 export const contractsAPI = {
-  getAll: (params) => api.get('/contracts', { params }),
-  getById: (id) => api.get(`/contracts/${id}`),
-  getByRoad: (roadId) => api.get(`/roads/${roadId}/contracts`),
-  create: (data) => api.post('/contracts', data),
-  update: (id, data) => api.put(`/contracts/${id}`, data),
-  delete: (id) => api.delete(`/contracts/${id}`),
+  getByRoad: (roadId) => axios.get(`${API_BASE_URL}/contracts?roadId=${roadId}`),
+  getById: (id) => axios.get(`${API_BASE_URL}/contracts/${id}`),
+  getAll: () => axios.get(`${API_BASE_URL}/contracts`),
+  create: (data) => axios.post(`${API_BASE_URL}/contracts`, data),
+  update: (id, data) => axios.put(`${API_BASE_URL}/contracts/${id}`, data),
+  delete: (id) => axios.delete(`${API_BASE_URL}/contracts/${id}`),
 };
 
-// Incidents API
 export const incidentsAPI = {
-  getAll: (params) => api.get('/incidents', { params }),
-  getById: (id) => api.get(`/incidents/${id}`),
-  getByRoad: (roadId) => api.get(`/roads/${roadId}/incidents`),
-  create: (data) => api.post('/incidents', data),
-  update: (id, data) => api.put(`/incidents/${id}`, data),
-  delete: (id) => api.delete(`/incidents/${id}`),
-  getStats: () => api.get('/incidents/stats'),
+  getByRoad: (roadId) => axios.get(`${API_BASE_URL}/incidents?roadId=${roadId}`),
+  getById: (id) => axios.get(`${API_BASE_URL}/incidents/${id}`),
+  getAll: () => axios.get(`${API_BASE_URL}/incidents`),
+  create: (data) => axios.post(`${API_BASE_URL}/incidents`, data),
+  update: (id, data) => axios.put(`${API_BASE_URL}/incidents/${id}`, data),
+  delete: (id) => axios.delete(`${API_BASE_URL}/incidents/${id}`),
 };
 
-// Documents API
+export const adminAPI = {
+  getStats: () => axios.get(`${API_BASE_URL}/admin/stats`),
+  getUsers: () => axios.get(`${API_BASE_URL}/admin/users`),
+  getVerificationQueue: () => axios.get(`${API_BASE_URL}/admin/verification-queue`),
+  getAnalytics: () => axios.get(`${API_BASE_URL}/admin/analytics`),
+  updateUser: (userId, data) => axios.put(`${API_BASE_URL}/admin/users/${userId}`, data),
+};
+
+export const entitiesAPI = {
+  getContractors: (params) => axios.get(`${API_BASE_URL}/entities/contractors`, { params }),
+  getContractorById: (id) => axios.get(`${API_BASE_URL}/entities/contractors/${id}`),
+  createContractor: (data) => axios.post(`${API_BASE_URL}/entities/contractors`, data),
+  updateContractor: (id, data) => axios.put(`${API_BASE_URL}/entities/contractors/${id}`, data),
+  deleteContractor: (id) => axios.delete(`${API_BASE_URL}/entities/contractors/${id}`),
+};
+
 export const documentsAPI = {
-  getAll: (params) => api.get('/documents', { params }),
-  getById: (id) => api.get(`/documents/${id}`),
-  upload: (formData) => api.post('/documents/upload', formData, {
+  upload: (formData) => axios.post(`${API_BASE_URL}/documents/upload`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   }),
-  delete: (id) => api.delete(`/documents/${id}`),
-  download: (id) => api.get(`/documents/${id}/download`, { responseType: 'blob' }),
+  getByRoad: (roadId) => axios.get(`${API_BASE_URL}/documents?roadId=${roadId}`),
+  getById: (id) => axios.get(`${API_BASE_URL}/documents/${id}`),
+  getAll: () => axios.get(`${API_BASE_URL}/documents`),
+  delete: (id) => axios.delete(`${API_BASE_URL}/documents/${id}`),
+  verify: (id, data) => axios.post(`${API_BASE_URL}/documents/${id}/verify`, data),
 };
 
-// Entities API (Contractors, Officials, Ministers)
-export const entitiesAPI = {
-  getContractors: (params) => api.get('/entities/contractors', { params }),
-  getContractorById: (id) => api.get(`/entities/contractors/${id}`),
-  getOfficials: (params) => api.get('/entities/officials', { params }),
-  getOfficialById: (id) => api.get(`/entities/officials/${id}`),
-  getMinisters: (params) => api.get('/entities/ministers', { params }),
-  getMinisterById: (id) => api.get(`/entities/ministers/${id}`),
-};
-
-// Verification API
 export const verificationAPI = {
-  getPendingItems: () => api.get('/verification/pending'),
-  verify: (type, id) => api.post(`/verification/${type}/${id}/verify`),
-  reject: (type, id, reason) => api.post(`/verification/${type}/${id}/reject`, { reason }),
+  getQueue: () => axios.get(`${API_BASE_URL}/verification/queue`),
+  getById: (id) => axios.get(`${API_BASE_URL}/verification/${id}`),
+  approve: (id, data) => axios.post(`${API_BASE_URL}/verification/${id}/approve`, data),
+  reject: (id, data) => axios.post(`${API_BASE_URL}/verification/${id}/reject`, data),
 };
 
-// Admin API
-export const adminAPI = {
-  getUsers: (params) => api.get('/admin/users', { params }),
-  updateUserRole: (userId, role) => api.put(`/admin/users/${userId}/role`, { role }),
-  getStats: () => api.get('/admin/stats'),
+export default {
+  roadsAPI,
+  contractsAPI,
+  incidentsAPI,
+  adminAPI,
+  entitiesAPI,
+  documentsAPI,
+  verificationAPI,
 };
-
-export default api;

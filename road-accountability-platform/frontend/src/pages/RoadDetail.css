@@ -1,0 +1,179 @@
+.road-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.road-title-section h1 {
+  margin: 0;
+}
+
+.road-code {
+  color: #6b7280;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.road-overview-card {
+  margin-bottom: 30px;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.overview-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.overview-item label {
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.overview-item p {
+  font-size: 16px;
+  color: #1f2937;
+  margin: 0;
+  font-weight: 500;
+}
+
+.overview-description {
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.overview-description h3 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  color: #1f2937;
+}
+
+.overview-description p {
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Tabs */
+.tabs-container {
+  margin-top: 30px;
+}
+
+.tabs-header {
+  display: flex;
+  gap: 10px;
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 0;
+  overflow-x: auto;
+}
+
+.tab-btn {
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #6b7280;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.tab-btn:hover {
+  color: #3b82f6;
+}
+
+.tab-btn.active {
+  color: #3b82f6;
+  border-bottom-color: #3b82f6;
+}
+
+.tabs-content {
+  background: white;
+  border-radius: 0 0 12px 12px;
+  padding: 30px;
+  border: 1px solid #e5e7eb;
+  border-top: none;
+  margin-top: -1px;
+}
+
+.tab-pane {
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.no-data {
+  text-align: center;
+  color: #6b7280;
+  padding: 40px 20px;
+  font-style: italic;
+}
+
+.error-container {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+}
+
+.error-container h2 {
+  color: #1f2937;
+  margin-bottom: 15px;
+}
+
+.error-container p {
+  color: #6b7280;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+  .overview-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .tabs-header {
+    gap: 5px;
+    margin-bottom: 0;
+  }
+
+  .tab-btn {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+
+  .tabs-content {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .road-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

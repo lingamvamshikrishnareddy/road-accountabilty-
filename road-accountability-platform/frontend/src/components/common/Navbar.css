@@ -1,0 +1,138 @@
+.navbar {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  gap: 20px;
+}
+
+.sidebar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.sidebar-toggle:hover {
+  background-color: #f3f4f6;
+}
+
+.sidebar-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: #1f2937;
+  margin: 5px 0;
+  transition: 0.3s;
+  border-radius: 1px;
+}
+
+.nav-logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1f2937;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.nav-logo:hover {
+  color: #3b82f6;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.nav-btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.nav-btn-primary {
+  background-color: #3b82f6;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.nav-btn-primary:hover {
+  background-color: #2563eb;
+}
+
+.nav-btn-secondary {
+  background-color: #e5e7eb;
+  color: #1f2937;
+}
+
+.nav-btn-secondary:hover {
+  background-color: #d1d5db;
+}
+
+/* Tablet and Mobile */
+@media (max-width: 768px) {
+  .nav-container {
+    padding: 0 15px;
+  }
+
+  .sidebar-toggle {
+    display: block;
+    order: -1;
+  }
+
+  .nav-logo {
+    font-size: 1.1rem;
+    flex: 1;
+  }
+
+  .nav-actions {
+    gap: 8px;
+  }
+
+  .nav-btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .nav-container {
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-size: 1rem;
+  }
+
+  .nav-btn {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+}
+

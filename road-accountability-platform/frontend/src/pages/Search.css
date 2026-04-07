@@ -1,0 +1,153 @@
+.search-container {
+  max-width: 700px;
+  margin: 40px auto;
+}
+
+.search-form {
+  border: 2px solid #e5e7eb;
+}
+
+.search-results {
+  margin-top: 40px;
+}
+
+.results-summary {
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 30px;
+  padding: 16px;
+  background-color: #f0f4ff;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+}
+
+.results-summary strong {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.results-section {
+  margin-bottom: 50px;
+}
+
+.results-section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-result-card {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.search-result-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1));
+  pointer-events: none;
+}
+
+.search-result-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+  font-size: 13px;
+}
+
+.meta-item {
+  color: #4b5563;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.meta-item strong {
+  color: #1f2937;
+  font-weight: 600;
+  min-width: 70px;
+}
+
+.search-result-action {
+  color: #3b82f6;
+  font-weight: 600;
+  font-size: 13px;
+  margin-top: 12px;
+  transition: all 0.2s ease;
+}
+
+.search-result-card:hover .search-result-action {
+  color: #2563eb;
+  transform: translateX(4px);
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.no-results p {
+  margin: 0;
+  font-size: 18px;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.no-results-hint {
+  color: #6b7280;
+  font-size: 14px;
+  margin-top: 10px !important;
+}
+
+.search-placeholder {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.placeholder-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.placeholder-text {
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .search-container {
+    max-width: 100%;
+  }
+
+  .results-section-title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-results {
+    margin-top: 20px;
+  }
+
+  .results-summary {
+    font-size: 14px;
+    padding: 12px;
+  }
+}
